@@ -162,7 +162,6 @@ ifeq ($(TARGET_ARCH),arm)
 
   ifeq ($(TARGET_USE_KRAIT_BIONIC_OPTIMIZATION),true)
     libm_common_src_files += \
-	  arm/e_pow.S \
 	  arm/s_cos.S \
 	  arm/s_sin.S
     libm_common_cflags += -DKRAIT_NEON_OPTIMIZATION -fno-if-conversion
