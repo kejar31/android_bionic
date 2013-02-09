@@ -229,6 +229,14 @@ __ieee754_pow(double x, double y)
 	    t1 = u+v;
 	    SET_LOW_WORD(t1,0);
 	    t2 = v-(t1-u);
+#if defined(KRAIT_NEON_OPTIMIZATION) || defined(SPARROW_NEON_OPTIMIZATION) || defined(SCORPION_NEON_OPTIMIZATION)
+	} else if (ix <= 0x40100000 && iy <= 0x40100000 && hy > 0 && hx > 0) {
+#if defined(KRAIT_NO_AAPCS_VFP_MODE)
+		return pow_neon(x,y);
+#else
+		return pow_neon(x,y,lx,hx);
+#endif
+#endif
 	} else {
 	    double ss,s2,s_h,s_l,t_h,t_l;
 	    n = 0;
